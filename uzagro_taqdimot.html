@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UzAgro - AI asosidagi qishloq xo'jaligi platformasi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #1e293b;
+            background-color: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #0a3e2f 0%, #1a6d4c 100%);
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: #ffd966;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: opacity 0.2s;
+        }
+
+        nav a:hover {
+            opacity: 0.85;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #ffd966;
+            color: #0a3e2f;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .btn:hover {
+            background-color: #ffe08a;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Hero section */
+        .hero {
+            background: linear-gradient(145deg, #f1f9f4 0%, #e2f0e9 100%);
+            padding: 60px 0 80px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: #0a3e2f;
+        }
+
+        .hero h1 span {
+            color: #1e7e58;
+            display: block;
+            font-size: 56px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #2d4f3f;
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 16px;
+        }
+
+        .hero-image {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 400"><rect width="500" height="400" fill="%23c5e0d4"/><circle cx="250" cy="200" r="120" fill="%231e7e58" opacity="0.2"/><path d="M200 180 L300 180 L280 260 L220 260 Z" fill="%231e7e58" opacity="0.5"/><circle cx="200" cy="150" r="20" fill="%23ffd966"/><circle cx="300" cy="150" r="20" fill="%23ffd966"/><path d="M220 220 Q250 270 280 220" stroke="%230a3e2f" stroke-width="4" fill="none"/></svg>') no-repeat center;
+            background-size: contain;
+            height: 400px;
+            width: 100%;
+        }
+
+        /* Stats */
+        .stats {
+            padding: 60px 0;
+            background: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 42px;
+            font-weight: 700;
+            color: #0a3e2f;
+            margin-bottom: 8px;
+        }
+
+        .stat-item p {
+            color: #4b6b5c;
+            font-size: 18px;
+        }
+
+        /* Problems */
+        .problems {
+            padding: 80px 0;
+            background-color: #f8fbf9;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            color: #0a3e2f;
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: #3b5c4b;
+            max-width: 700px;
+            margin: 0 auto 50px;
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .problem-card {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,40,20,0.08);
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .problem-icon {
+            width: 70px;
+            height: 70px;
+            background: #e2f0e9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 30px;
+            color: #0a3e2f;
+        }
+
+        .problem-card h4 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #0a3e2f;
+        }
+
+        .problem-card p {
+            color: #4f6f5e;
+            font-size: 15px;
+        }
+
+        /* Solution */
+        .solution {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .solution-item {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            align-items: flex-start;
+        }
+
+        .solution-icon {
+            min-width: 50px;
+            height: 50px;
+            background: #0a3e2f;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        .solution-text h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+            color: #0a3e2f;
+        }
+
+        .solution-text p {
+            color: #3b5c4b;
+        }
+
+        .ai-accuracy {
+            background: #f1f9f4;
+            padding: 20px 30px;
+            border-radius: 60px;
+            display: inline-block;
+            font-weight: 700;
+            color: #0a3e2f;
+            border: 1px solid #a3d8b5;
+            margin-top: 20px;
+        }
+
+        .ai-accuracy span {
+            font-size: 28px;
+            color: #1e7e58;
+        }
+
+        .how-it-works {
+            background: #e2f0e9;
+            border-radius: 24px;
+            padding: 40px;
+            margin-top: 40px;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .step {
+            text-align: center;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: #0a3e2f;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 22px;
+            margin: 0 auto 15px;
+        }
+
+        .step h4 {
+            margin-bottom: 8px;
+            color: #0a3e2f;
+        }
+
+        .step p {
+            font-size: 14px;
+            color: #2d5a43;
+        }
+
+        /* Market */
+        .market {
+            padding: 80px 0;
+            background: #f8fbf9;
+        }
+
+        .market-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .market-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .market-card h3 {
+            font-size: 24px;
+            color: #0a3e2f;
+            margin-bottom: 10px;
+        }
+
+        .market-card .amount {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1e7e58;
+            margin-bottom: 8px;
+        }
+
+        .market-card p {
+            color: #4b6b5c;
+        }
+
+        /* Business model */
+        .business-model {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .model-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .model-item {
+            background: #f1f9f4;
+            padding: 30px 20px;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .model-item .price {
+            font-size: 32px;
+            font-weight: 700;
+            color: #0a3e2f;
+        }
+
+        .model-item .desc {
+            color: #3b5c4b;
+            margin: 10px 0;
+        }
+
+        .revenue-progress {
+            background: #e2f0e9;
+            padding: 40px;
+            border-radius: 24px;
+        }
+
+        .revenue-years {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .year-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .year {
+            font-weight: 700;
+            color: #0a3e2f;
+        }
+
+        .revenue {
+            font-size: 22px;
+            font-weight: 600;
+            color: #1e7e58;
+        }
+
+        /* Investment */
+        .investment {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #0a3e2f 0%, #1a6d4c 100%);
+            color: white;
+        }
+
+        .investment-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .investment h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+
+        .investment-details {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 24px;
+        }
+
+        .investment-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            font-size: 18px;
+        }
+
+        .investment-row:last-child {
+            border-bottom: none;
+        }
+
+        .uses {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .use-tag {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-size: 16px;
+        }
+
+        /* Footer */
+        footer {
+            background: #0a2a1f;
+            color: white;
+            padding: 50px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo span {
+            color: #ffd966;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #b3d1c2;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #1f4f3a;
+            color: #b3d1c2;
+        }
+
+        @media (max-width: 992px) {
+            .hero-grid, .solution-grid, .investment-content {
+                grid-template-columns: 1fr;
+            }
+            .stats-grid, .problems-grid, .model-grid, .market-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .stats-grid, .problems-grid, .model-grid, .market-cards, .steps {
+                grid-template-columns: 1fr;
+            }
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            nav ul {
+                gap: 16px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">UzAgro <span>✦</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#muammolar">Muammolar</a></li>
+                    <li><a href="#yechim">Yechim</a></li>
+                    <li><a href="#bozor">Bozor</a></li>
+                    <li><a href="#investitsiya">Investitsiya</a></li>
+                </ul>
+            </nav>
+            <a href="#" class="btn-outline btn">Kirish</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-grid">
+            <div>
+                <h1>Sun'iy intellekt asosidagi <span>qishloq xo'jaligi platformasi</span></h1>
+                <p>UzAgro – fermerlarga kasalliklarni aniqlash, agronom maslahati va mahsulot sotishda yordam beradi.</p>
+                <div class="hero-btns">
+                    <a href="#" class="btn">Boshlash</a>
+                    <a href="#" class="btn-outline btn">Video bilan tanishing</a>
+                </div>
+                <div class="ai-accuracy">
+                    <span>80% – 95%</span> aniqlik darajasi
+                </div>
+            </div>
+            <div class="hero-image"></div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="container stats-grid">
+            <div class="stat-item">
+                <h3>100K+</h3>
+                <p>Fermer xo'jaliklari</p>
+            </div>
+            <div class="stat-item">
+                <h3>1M+</h3>
+                <p>Kichik dehqonlar</p>
+            </div>
+            <div class="stat-item">
+                <h3>30%</h3>
+                <p>Hosil yo'qolishi</p>
+            </div>
+            <div class="stat-item">
+                <h3>2026</h3>
+                <p>Asos solingan</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="muammolar" class="problems">
+        <div class="container">
+            <h2 class="section-title">Asosiy muammolar</h2>
+            <p class="section-subtitle">O'zbekiston fermerlari har kuni duch keladigan to'siqlar</p>
+            <div class="problems-grid">
+                <div class="problem-card">
+                    <div class="problem-icon"><i class="fas fa-leaf"></i></div>
+                    <h4>Kasalliklar kech aniqlanadi</h4>
+                    <p>O'simlik kasalliklari vaqtida aniqlanmaydi, hosil yo'qoladi</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon"><i class="fas fa-user-tie"></i></div>
+                    <h4>Agronom yetishmaydi</h4>
+                    <p>Malakali agronomlarga murojaat qilish qiyin va qimmat</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon"><i class="fas fa-chart-line"></i></div>
+                    <h4>Bozor narxlari noma'lum</h4>
+                    <p>Fermerlar haqiqiy bozor narxlarini bilishmaydi</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon"><i class="fas fa-store"></i></div>
+                    <h4>Sotish qiyin</h4>
+                    <p>Yetishtirilgan mahsulotni sotish uchun platforma yetishmaydi</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="yechim" class="solution">
+        <div class="container">
+            <h2 class="section-title">Bizning yechim – UzAgro</h2>
+            <div class="solution-grid">
+                <div>
+                    <div class="solution-item">
+                        <div class="solution-icon"><i class="fas fa-camera"></i></div>
+                        <div class="solution-text">
+                            <h3>AI kasallik aniqlash</h3>
+                            <p>Rasm yuklang, sun'iy intellekt kasallikni 80-95% aniqlik bilan topsin</p>
+                        </div>
+                    </div>
+                    <div class="solution-item">
+                        <div class="solution-icon"><i class="fas fa-comments"></i></div>
+                        <div class="solution-text">
+                            <h3>Agronom maslahati</h3>
+                            <p>Malakali mutaxassislardan tez va arzon maslahat</p>
+                        </div>
+                    </div>
+                    <div class="solution-item">
+                        <div class="solution-icon"><i class="fas fa-tags"></i></div>
+                        <div class="solution-text">
+                            <h3>Bozor narxlari</h3>
+                            <p>Haqiqiy bozor narxlarini kuzatib boring</p>
+                        </div>
+                    </div>
+                    <div class="solution-item">
+                        <div class="solution-icon"><i class="fas fa-cart-shopping"></i></div>
+                        <div class="solution-text">
+                            <h3>Marketplace</h3>
+                            <p>Mahsulotingizni onlayn soting</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="how-it-works">
+                    <h3 style="color:#0a3e2f; margin-bottom:20px;">AI texnologiyasi</h3>
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <h4>Rasm yuklash</h4>
+                            <p>Fermer o'simlik rasmini yuklaydi</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <h4>AI tahlil</h4>
+                            <p>Sun'iy intellekt tahlil qiladi</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <h4>Kasallik aniqlash</h4>
+                            <p>AI kasallikni aniqlaydi</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <h4>Tavsiya</h4>
+                            <p>Davolash bo'yicha yo'riqnoma</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="bozor" class="market">
+        <div class="container">
+            <h2 class="section-title">Bozor hajmi</h2>
+            <div class="market-cards">
+                <div class="market-card">
+                    <h3>SOM</h3>
+                    <div class="amount">$20M</div>
+                    <p>UzAgro uchun daromad</p>
+                </div>
+                <div class="market-card">
+                    <h3>SAM</h3>
+                    <div class="amount">$120M</div>
+                    <p>AgroTex bozor</p>
+                </div>
+                <div class="market-card">
+                    <h3>TAM</h3>
+                    <div class="amount">$500M</div>
+                    <p>Umumiy bozor</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="business-model">
+        <div class="container">
+            <h2 class="section-title">Biznes modeli</h2>
+            <div class="model-grid">
+                <div class="model-item">
+                    <div class="price">$5</div>
+                    <div class="desc">Premium obuna / oy</div>
+                </div>
+                <div class="model-item">
+                    <div class="price">$10</div>
+                    <div class="desc">Agronom maslahat</div>
+                </div>
+                <div class="model-item">
+                    <div class="price">5%</div>
+                    <div class="desc">Marketplace komissiyasi</div>
+                </div>
+                <div class="model-item">
+                    <div class="price">Reklama</div>
+                    <div class="desc">Agro kompaniyalar</div>
+                </div>
+            </div>
+
+            <div class="revenue-progress">
+                <h3 style="color:#0a3e2f; text-align:center;">Yillik daromad prognozi</h3>
+                <div class="revenue-years">
+                    <div class="year-item">
+                        <div class="year">2026</div>
+                        <div class="revenue">$50K</div>
+                    </div>
+                    <div class="year-item">
+                        <div class="year">2027</div>
+                        <div class="revenue">$200K</div>
+                    </div>
+                    <div class="year-item">
+                        <div class="year">2028</div>
+                        <div class="revenue">$900K</div>
+                    </div>
+                    <div class="year-item">
+                        <div class="year">2030</div>
+                        <div class="revenue">$5M</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="investitsiya" class="investment">
+        <div class="container investment-content">
+            <div>
+                <h2>Investitsiya so'rovi</h2>
+                <p style="font-size:18px; margin-bottom:20px;">Keling, Markaziy Osiyodagi eng katta AgriTech platformasini birga quraylik.</p>
+                <div class="uses">
+                    <span class="use-tag">AI rivojlantirish</span>
+                    <span class="use-tag">Mobil ilova yaratish</span>
+                    <span class="use-tag">Marketing</span>
+                </div>
+            </div>
+            <div class="investment-details">
+                <div class="investment-row">
+                    <span>So'ralayotgan investitsiya</span>
+                    <strong>$100K</strong>
+                </div>
+                <div class="investment-row">
+                    <span>Taklif qilinayotgan ulush</span>
+                    <strong>15%</strong>
+                </div>
+                <div class="investment-row">
+                    <span>Founder</span>
+                    <strong>Doston Nazarov</strong>
+                </div>
+                <div style="margin-top: 25px;">
+                    <a href="#" class="btn" style="width:100%; text-align:center;">Investor bo'lish</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">UzAgro <span>✦</span></div>
+                    <p style="color:#b3d1c2; margin-top:10px;">Sun'iy intellekt bilan rivojlanayotgan qishloq xo'jaligi</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Platforma</h4>
+                    <ul>
+                        <li><a href="#">AI kasallik aniqlash</a></li>
+                        <li><a href="#">Agronom maslahati</a></li>
+                        <li><a href="#">Bozor narxlari</a></li>
+                        <li><a href="#">Marketplace</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Kompaniya</h4>
+                    <ul>
+                        <li><a href="#">Biz haqimizda</a></li>
+                        <li><a href="#">Investorlar</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Kontakt</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Qo'llab-quvvatlash</h4>
+                    <ul>
+                        <li><a href="#">Yordam</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Maxfiylik</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2026 UzAgro. Barcha huquqlar himoyalangan. Founder: Doston Nazarov
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
